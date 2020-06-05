@@ -15,7 +15,11 @@ dirmngr
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys \
 409B6B1796C275462A1703113804BB82D39DC0E3 \
 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-RUN curl -sSL https://get.rvm.io | bash
+RUN curl -sSL https://get.rvm.io | bash -s
 RUN . /etc/profile.d/rvm.sh
-RUN /usr/local/rvm/bin/rvm install 2.5
-#RUN gem2.5 install bundler
+RUN /usr/local/rvm/bin/rvm install 2.5.8
+RUN /usr/local/rvm/gems/ruby-2.5.8/wrappers/gem install bundler
+
+COPY . .
+WORKDIR openstreetmap-website
+RUN /usr/local/rvm/gems/ruby-2.5.8/wrappers/bundle install
